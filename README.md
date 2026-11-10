@@ -5,11 +5,13 @@ TCL UnionTV (Android 9, ARMv7, 720p, 1.4 GB RAM).
 
 **Designed & Developed by Ahsen Kurtoski.**
 
+[![Release checks](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/actions/workflows/release-check.yml/badge.svg)](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/actions/workflows/release-check.yml)
+
 ![Home screen](docs/audit/v114-home.png)
 
 ![Network screen](docs/audit/v114-network.png)
 
-*Full 1.1.4 gallery: [docs/SCREENSHOTS.md](docs/SCREENSHOTS.md).*
+*Full 1.1.4 gallery: [docs/SCREENSHOTS.md](docs/SCREENSHOTS.md). Published screenshots redact the Wi-Fi network name and local IP addresses.*
 
 The launcher is a single native Android app with **zero third-party
 dependencies**: no Compose, no Leanback, no RecyclerView, no analytics, no

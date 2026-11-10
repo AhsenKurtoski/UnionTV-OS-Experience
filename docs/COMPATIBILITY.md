@@ -34,8 +34,8 @@
 | Icon loading | Real icons before cards; no letter placeholders; cache in `filesDir` |
 | Home checker | `tools/home.sh check` passes; System screen shows Default Home |
 | Cleanup | Netflix, Kodi, Pluto TV and AirScreen removed; Google TV launcher removed for user 0 |
-| Wi-Fi SSID in top bar and Network | Real SSID with green connected dot |
-| Network details | IP 192.168.0.154, gateway 192.168.0.1, wlan0 |
+| Wi-Fi SSID in top bar and Network | Real SSID with green connected dot; redacted in published captures |
+| Network details | IP/gateway values redacted in the published capture; interface wlan0 |
 | Applications grid initial focus | Canali TV first; RIGHT → BrowseHere; DOWN → Impostazioni |
 | Quick access navigation | DOWN → Settings; RIGHT → All apps → Network; no crash |
 | Home top bar while scrolling | Legible; scrim removes content overlap |

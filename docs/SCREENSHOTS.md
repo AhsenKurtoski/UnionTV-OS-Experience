@@ -2,7 +2,8 @@
 
 All images below are **real 1280×720 captures from the TCL UnionTV** running
 UnionTV OS Experience 1.1.4, taken with ADB `screencap`. They are not mockups.
-The Home, Apps, Settings and Network shots are referenced by the README and the
+Network names and local IP addresses are blurred in the published captures. The
+Home, Apps, Settings and Network shots are referenced by the README and the
 launch video; the loading/first-frame shots document the 1.1.4 startup work.
 
 ## Home
@@ -30,8 +31,9 @@ favourites rail. The subtitle confirms the installed version, 1.1.4.
 
 ![UnionTV Network details](audit/v114-network.png)
 
-Live Wi-Fi status, SSID, IP, gateway, DNS, link speed and interface. The app has
-no Internet permission; this screen is read-only.
+Live Wi-Fi status, link speed and interface. The network name, IP, gateway and
+DNS values are blurred in this published capture. The app has no Internet
+permission; this screen is read-only.
 
 ## System
 

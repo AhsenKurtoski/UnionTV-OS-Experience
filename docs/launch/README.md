@@ -3,11 +3,12 @@
 [![UnionTV launch poster](uniontv-launch-poster.png)](uniontv-launch-15s.mp4)
 
 **[Download the MP4](uniontv-launch-15s.mp4)** · 15.000 s · 1280×720 · 30 fps ·
-H.264 / AAC stereo · 1,418,976 bytes
+H.264 / AAC stereo · 1,407,937 bytes
 
 A short, quiet launch film for UnionTV OS Experience 1.1.4. It uses the real
-1280×720 screenshots from the TCL UnionTV and an original ambient score. There
-is no stock footage, no licensed music and no voice-over.
+1280×720 screenshots from the TCL UnionTV and an original ambient score. Network
+names and local IP addresses are redacted in the published screenshots and film.
+There is no stock footage, no licensed music and no voice-over.
 
 ## What is in this folder
 
@@ -89,7 +90,7 @@ depend on browser timing.
 ## Integrity
 
 ```text
-SHA-256  MP4     9afe1131a2eed3a4ea3be15f7f73975e9d96345470685b23a11cc420d22bf920
+SHA-256  MP4     6be9923b63d3e3474013024da9d451eda05804ddd15e568144a22d1d73b2e8d1
 SHA-256  poster  d78a5729e9cf9ecd1f2f23061e4b011a633d96ba9ab390963cd154f2782868e3
 Duration         15.000 s (video and audio)
 Video            1280×720, 30 fps, H.264, yuv420p

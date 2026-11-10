@@ -28,7 +28,7 @@
 | Home with real icons | **PASS** | 27 applications, `v114-home.png` |
 | Applications grid | **PASS** | real labels/icons, sort controls, `v114-apps.png` |
 | Settings screen | **PASS** | version 1.1.4, `v114-settings.png` |
-| Network screen | **PASS** | Wi-Fi connected, SSID `G403-276D`, IP 192.168.0.154, `v114-network.png` |
+| Network screen | **PASS** | Wi-Fi connected; SSID and IP redacted in the published capture, `v114-network.png` |
 | System screen | **PASS** | model/platform/storage facts, `v114-system.png` |
 | About screen | **PASS** | 1.1.4, package and compatibility, `v114-about.png` |
 | Crash/ANR during capture | **PASS** | no crash or ANR observed |

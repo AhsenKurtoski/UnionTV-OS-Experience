@@ -1,6 +1,6 @@
 # QA and tested limits
 
-**Release:** UnionTV OS Experience 1.1.4 (6)  
+**Release:** [UnionTV OS Experience 1.1.4 (6)](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/releases/tag/v1.1.4)<br>
 **Test device:** TCL UnionTV, Android 9 / API 28, ARMv7, 1280×720, 1.4 GB RAM  
 **Test date:** 10 November 2026  
 **Test method:** physical television over ADB, visual inspection of TV screenshots, framework counters and read-only package checks.

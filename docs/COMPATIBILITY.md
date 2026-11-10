@@ -1,5 +1,7 @@
 # Compatibility report
 
+**Release:** [UnionTV OS Experience 1.1.4 (6)](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/releases/tag/v1.1.4)
+
 ## Target device (audited)
 
 | Property | Value |

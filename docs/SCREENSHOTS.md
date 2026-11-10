@@ -6,6 +6,8 @@ Network names and local IP addresses are blurred in the published captures. The
 Home, Apps, Settings and Network shots are referenced by the README and the
 launch video; the loading/first-frame shots document the 1.1.4 startup work.
 
+**Release:** [v1.1.4](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/releases/tag/v1.1.4) — signed APK, launch film and poster.
+
 ## Home
 
 ![UnionTV Home — 27 apps and live Wi-Fi](audit/v114-home.png)

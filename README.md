@@ -25,6 +25,15 @@ background services and no network access. The whole release APK is **78.5 KB**.
 1280×720, 30 fps, H.264/AAC, original score. Production notes, timeline and
 regeneration steps: [docs/launch/README.md](docs/launch/README.md).
 
+### Release v1.1.4
+
+The signed APK and the redacted launch assets are attached to
+**[GitHub release v1.1.4](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/releases/tag/v1.1.4)**:
+[APK](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/releases/download/v1.1.4/UnionTV-1.1.4.apk) ·
+[launch film](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/releases/download/v1.1.4/uniontv-launch-15s.mp4) ·
+[poster](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/releases/download/v1.1.4/uniontv-launch-poster.png).
+Release notes, checksums and the tested matrix are on the release page.
+
 ### Documentation
 
 | Guide | Contents |
@@ -105,7 +114,7 @@ adb connect <tv-ip>:5555        # only if ADB is already enabled on the TV
 adb install -r dist/UnionTV-1.1.4.apk
 ```
 
-Current release: `dist/UnionTV-1.1.4.apk` — **80,399 bytes** — SHA-256
+Current release: [UnionTV-1.1.4.apk](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/releases/download/v1.1.4/UnionTV-1.1.4.apk) — **80,399 bytes** — SHA-256
 `3008043f871dac8b9648b60b4ff3084632a39c5888a7348edc46131e19475e5b`.
 
 ### On the television

@@ -4,6 +4,8 @@ UnionTV OS Experience is a small, dependency-free Android application. The
 entire visible interface is drawn with the Android framework: no Compose, no
 Leanback, no RecyclerView, no support libraries and no native code.
 
+**Release:** [UnionTV OS Experience 1.1.4 (6)](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/releases/tag/v1.1.4)
+
 ## High-level shape
 
 ```

@@ -1,0 +1,81 @@
+name: Release checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-verify:
+    name: Build APK and verify release assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Build release APK
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:assembleRelease --no-daemon --console=plain
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+
+      - name: Verify APK, screenshots and launch film
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          built_apk=$(find app/build/outputs/apk/release -maxdepth 1 -type f -name '*.apk' | head -n 1)
+          test -n "$built_apk"
+          echo "Built: $built_apk"
+
+          test -f dist/UnionTV-1.1.4.apk
+          test "$(stat -c%s dist/UnionTV-1.1.4.apk)" -eq 80399
+
+          test -f docs/launch/uniontv-launch-15s.mp4
+          test -f docs/launch/uniontv-launch-poster.png
+
+          screenshot_count=$(find docs/audit -maxdepth 1 -type f -name 'v114-*.png' | wc -l)
+          test "$screenshot_count" -eq 10
+          for image in docs/audit/v114-*.png; do
+            file "$image" | grep -q 'PNG image data, 1280 x 720'
+          done
+          echo "Verified $screenshot_count screenshots at 1280x720"
+
+          ffprobe -v error \
+            -select_streams v:0 \
+            -show_entries stream=codec_name,width,height,r_frame_rate \
+            -show_entries format=duration \
+            -of default=noprint_wrappers=1 \
+            docs/launch/uniontv-launch-15s.mp4 > /tmp/video-probe.txt
+
+          grep -qx 'codec_name=h264' /tmp/video-probe.txt
+          grep -qx 'width=1280' /tmp/video-probe.txt
+          grep -qx 'height=720' /tmp/video-probe.txt
+          grep -qx 'r_frame_rate=30/1' /tmp/video-probe.txt
+          duration=$(grep '^duration=' /tmp/video-probe.txt | cut -d= -f2)
+          python3 -c 'import sys; assert abs(float(sys.argv[1]) - 15.0) < 0.01, sys.argv[1]' "$duration"
+
+          audio_codec=$(ffprobe -v error -select_streams a:0 -show_entries stream=codec_name -of csv=p=0 docs/launch/uniontv-launch-15s.mp4)
+          test "$audio_codec" = "aac"
+          echo "Verified H.264/AAC launch film at 1280x720, 30 fps, 15 s"
+
+      - name: Upload release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: uniontv-release-apk
+          path: app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
+          retention-days: 14

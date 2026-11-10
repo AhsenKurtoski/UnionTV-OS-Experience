@@ -242,6 +242,17 @@ Output: `app/build/outputs/apk/release/app-release.apk`.
 
 ---
 
+## Release checks
+
+[`.github/workflows/release-check.yml`](.github/workflows/release-check.yml)
+runs on every push to `main`, on pull requests and manually. It builds the
+unsigned release APK with JDK 17, verifies the 10 documented screenshots are
+1280×720, checks the launch film is H.264/AAC, 1280×720, 30 fps and 15.000 s,
+and uploads the APK as a workflow artifact. Signing keys are never stored in the
+repository.
+
+---
+
 ## Project structure
 
 ```

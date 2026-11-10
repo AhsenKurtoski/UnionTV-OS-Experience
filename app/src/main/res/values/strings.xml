@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">UnionTV OS Experience</string>
+
+    <string name="brand_union">UNION</string>
+    <string name="brand_tv">TV</string>
+    <string name="brand_sub">OS EXPERIENCE</string>
+    <string name="brand_name_caps">AHSEN KURTOSKI</string>
+    <string name="credit_line">Designed &amp; Developed by Ahsen Kurtoski</string>
+    <string name="credit_label">Designed &amp; Developed by</string>
+
+    <string name="home_greeting_morning">Good morning</string>
+    <string name="home_greeting_afternoon">Good afternoon</string>
+    <string name="home_greeting_evening">Good evening</string>
+    <string name="home_greeting_night">Good night</string>
+    <string name="home_tagline">Your television, refined.</string>
+    <string name="home_hint">Press OK to open an app · hold OK for options</string>
+    <plurals name="home_apps_count">
+        <item quantity="one">%d application</item>
+        <item quantity="other">%d applications</item>
+    </plurals>
+    <plurals name="home_favourites_count">
+        <item quantity="one">%d favourite</item>
+        <item quantity="other">%d favourites</item>
+    </plurals>
+    <string name="rail_favorites">Favourites</string>
+    <string name="rail_apps">Applications</string>
+    <string name="rail_quick">Quick access</string>
+    <string name="rail_featured">Featured</string>
+    <string name="quick_settings">Settings</string>
+    <string name="quick_apps">All apps</string>
+    <string name="quick_network">Network</string>
+    <string name="quick_system">System</string>
+    <string name="quick_about">About</string>
+    <string name="tv_channels_label">Canali TV</string>
+    <string name="network_name">Network name</string>
+    <string name="home_empty_favorites">Hold OK on any app to add it to your favourites.</string>
+    <string name="home_empty_apps">No launchable applications were found on this device.</string>
+    <string name="apps_loading">Loading applications…</string>
+    <string name="see_all">See all</string>
+
+    <string name="apps_title">Applications</string>
+    <string name="apps_hint">Hold OK on an application for options</string>
+    <string name="apps_subtitle_format">%1$d launchable applications · hold OK for options</string>
+    <string name="sort_az">A–Z</string>
+    <string name="sort_recent">Recent</string>
+    <string name="sort_favorites">Favourites</string>
+    <string name="apps_empty">No launchable applications were found.</string>
+
+    <string name="action_open">Open</string>
+    <string name="action_add_favorite">Add to favourites</string>
+    <string name="action_remove_favorite">Remove from favourites</string>
+    <string name="action_info">App info</string>
+    <string name="action_close">Close</string>
+    <string name="launch_failed">Unable to open %1$s</string>
+    <string name="info_unavailable">App details are not available</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_accent">Accent colour</string>
+    <string name="settings_wallpaper">Background</string>
+    <string name="settings_interface">Interface</string>
+    <string name="settings_reduce_motion">Reduce motion</string>
+    <string name="settings_reduce_motion_desc">No card scaling, focus stays crisp</string>
+    <string name="settings_clock24">24-hour clock</string>
+    <string name="settings_clock24_desc">Show the time as 21:40 instead of 9:40 PM</string>
+    <string name="settings_favorites_rail">Favourites on Home</string>
+    <string name="settings_favorites_rail_desc">Show the favourites rail above all applications</string>
+    <string name="settings_apps_section">Applications</string>
+    <string name="settings_manage_favorites">Manage favourites</string>
+    <string name="settings_manage_favorites_desc">Pin apps from the full application grid</string>
+    <string name="settings_reset">Restore defaults</string>
+    <string name="settings_reset_desc">Accent, background and interface options</string>
+    <string name="settings_reset_done">Defaults restored</string>
+    <string name="settings_about_section">Project</string>
+    <string name="settings_about">About UnionTV OS Experience</string>
+    <string name="settings_about_desc">Version, credits and compatibility</string>
+
+    <string name="accent_blue">Blue</string>
+    <string name="accent_violet">Violet</string>
+    <string name="accent_aqua">Aqua</string>
+    <string name="accent_amber">Amber</string>
+
+    <string name="wall_midnight">Midnight</string>
+    <string name="wall_nebula">Nebula</string>
+    <string name="wall_slate">Slate</string>
+    <string name="wall_aurora">Aurora</string>
+
+    <string name="on">On</string>
+    <string name="off">Off</string>
+
+    <string name="network_title">Network</string>
+    <string name="network_status">Status</string>
+    <string name="network_connected">Connected</string>
+    <string name="network_disconnected">Not connected</string>
+    <string name="network_type">Connection</string>
+    <string name="network_ip">IP address</string>
+    <string name="network_gateway">Gateway</string>
+    <string name="network_dns">DNS</string>
+    <string name="network_speed">Link speed</string>
+    <string name="network_interface">Interface</string>
+    <string name="network_metered">Metered</string>
+    <string name="network_open_settings">Open Wi-Fi settings</string>
+    <string name="network_unknown">—</string>
+    <string name="network_hint">Changes made in the system Wi-Fi settings are reflected here immediately.</string>
+    <string name="type_wifi">Wi-Fi</string>
+    <string name="type_ethernet">Ethernet</string>
+    <string name="type_cellular">Mobile data</string>
+    <string name="type_other">Other</string>
+    <string name="speed_format">%1$d Mbps</string>
+    <string name="speed_hint_format">%1$d Mbps downstream</string>
+
+    <string name="system_title">System information</string>
+    <string name="sys_device">Device</string>
+    <string name="sys_manufacturer">Manufacturer</string>
+    <string name="sys_model">Model</string>
+    <string name="sys_os">Android version</string>
+    <string name="sys_sdk">API level</string>
+    <string name="sys_arch">Architecture</string>
+    <string name="sys_display">Display</string>
+    <string name="sys_density">Density</string>
+    <string name="sys_memory">Memory</string>
+    <string name="sys_storage">Internal storage</string>
+    <string name="sys_uptime">Uptime</string>
+    <string name="sys_apps">Launchable apps</string>
+    <string name="sys_home">Default Home</string>
+    <string name="sys_gpu">GPU / OpenGL ES</string>
+    <string name="sys_cores">CPU cores</string>
+    <string name="sys_section_device">Device</string>
+    <string name="sys_section_os">Software</string>
+    <string name="sys_section_memory">Memory &amp; storage</string>
+    <string name="sys_section_display">Display</string>
+    <string name="value_display">%1$d × %2$d px</string>
+    <string name="value_density">%1$d dpi</string>
+    <string name="value_ram">%1$s of %2$s used</string>
+    <string name="value_storage">%1$s free of %2$s</string>
+    <string name="value_cpu_format">%1$d cores</string>
+
+    <string name="about_title">About</string>
+    <string name="about_version_label">Project version</string>
+    <string name="about_compat_label">Android compatibility</string>
+    <string name="about_compat_value">Android 9 (API 28) · ARMv7 32-bit · 1280 × 720</string>
+    <string name="about_build_label">Build type</string>
+    <string name="about_package_label">Package</string>
+    <string name="about_description">A modern, lightweight Smart TV experience built natively for this TCL UnionTV. Every screen is drawn by the Android framework itself, with no advertising, no tracking, no analytics and no background services — the interface stays fast on modest hardware.</string>
+    <string name="about_disclaimer">Independent customisation project. Not affiliated with, endorsed by or connected to TCL, Google or any application vendor. All application names and icons belong to their respective owners.</string>
+    <string name="about_role">Smart TV experience</string>
+
+    <string name="back">Back</string>
+    <string name="refresh">Refresh</string>
+    <string name="open">Open</string>
+</resources>

@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280, initial-scale=1">
+<title>UnionTV OS Experience — 15s Launch</title>
+<style>
+  :root {
+    --bg: #05070b;
+    --ink: #f5f7fb;
+    --muted: #8d96a8;
+    --faint: #5c6577;
+    --line: rgba(255,255,255,.09);
+    --accent: #6f8cff;
+    --accent-2: #9a79ff;
+    --aqua: #55d9cf;
+    --stage-w: 1280px;
+    --stage-h: 720px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
+  body {
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+  }
+  #stage {
+    position: relative;
+    width: var(--stage-w);
+    height: var(--stage-h);
+    overflow: hidden;
+    isolation: isolate;
+    background:
+      radial-gradient(ellipse 58% 80% at 82% 14%, rgba(111,140,255,.23), transparent 64%),
+      radial-gradient(ellipse 50% 70% at 12% 94%, rgba(154,121,255,.13), transparent 66%),
+      var(--bg);
+  }
+  #stage::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,.8), transparent 85%);
+    pointer-events: none;
+  }
+  #stage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 42%, transparent 40%, rgba(0,0,0,.62) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(18px);
+    opacity: .55;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .orb.one {
+    width: 380px; height: 380px; right: -80px; top: -110px;
+    background: radial-gradient(circle, rgba(111,140,255,.32), transparent 68%);
+  }
+  .orb.two {
+    width: 360px; height: 360px; left: -120px; bottom: -160px;
+    background: radial-gradient(circle, rgba(85,217,207,.13), transparent 68%);
+  }
+  body.playing .orb.one { animation: driftOne 18s ease-in-out infinite; }
+  body.playing .orb.two { animation: driftTwo 22s ease-in-out infinite; }
+  @keyframes driftOne { 50% { transform: translate(-30px, 40px) scale(1.08); } }
+  @keyframes driftTwo { 50% { transform: translate(42px, -24px) scale(1.1); } }
+
+  .chrome {
+    position: absolute;
+    top: 40px; left: 56px; right: 56px;
+    z-index: 8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    letter-spacing: .17em;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .brand .union { color: var(--ink); }
+  .brand .tv { color: var(--accent); }
+  .brand-sub {
+    margin-left: 12px;
+    color: var(--faint);
+    font-size: 8px;
+    letter-spacing: .42em;
+    font-weight: 500;
+    transform: translateY(-1px);
+  }
+  .chrome-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--faint);
+    font-size: 9px;
+    letter-spacing: .23em;
+    text-transform: uppercase;
+  }
+  .live-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--aqua);
+    box-shadow: 0 0 10px rgba(85,217,207,.7);
+  }
+  .chrome-rule {
+    position: absolute;
+    top: 78px; left: 56px; right: 56px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--line), transparent 72%);
+    z-index: 7;
+  }
+
+  .scenes { position: absolute; inset: 0; z-index: 2; }
+  .scene {
+    position: absolute;
+    inset: 0;
+    padding: 122px 56px 70px;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity .58s ease, transform .72s cubic-bezier(.2,.8,.2,1), visibility .58s;
+  }
+  .scene.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .copy { width: 458px; flex: 0 0 458px; position: relative; z-index: 3; }
+  .kicker {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .5s ease .18s, transform .55s ease .18s;
+  }
+  .kicker::before {
+    content: "";
+    width: 24px; height: 1px;
+    background: var(--accent);
+    box-shadow: 0 0 10px rgba(111,140,255,.6);
+  }
+  .scene.active .kicker { opacity: 1; transform: translateY(0); }
+  h1 {
+    margin: 0;
+    font-size: 54px;
+    line-height: .98;
+    letter-spacing: -.035em;
+    font-weight: 300;
+    color: var(--ink);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .6s ease .22s, transform .7s cubic-bezier(.2,.8,.2,1) .22s;
+  }
+  h1 em { font-style: normal; color: var(--accent); }
+  .scene.active h1 { opacity: 1; transform: translateY(0); }
+  .lede {
+    margin: 22px 0 0;
+    max-width: 390px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 400;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .55s ease .34s, transform .6s ease .34s;
+  }
+  .scene.active .lede { opacity: 1; transform: translateY(0); }
+  .chips {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 26px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .5s ease .42s, transform .55s ease .42s;
+  }
+  .scene.active .chips { opacity: 1; transform: translateY(0); }
+  .chip {
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+    background: rgba(255,255,255,.025);
+    font-size: 8px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .panel {
+    flex: 1 1 auto;
+    min-width: 0;
+    position: relative;
+    opacity: 0;
+    transform: translateX(24px) rotateY(-5deg) rotateX(1.5deg);
+    transform-origin: 42% 50%;
+    transition: opacity .75s ease .2s, transform .9s cubic-bezier(.2,.8,.2,1) .2s;
+    filter: drop-shadow(0 34px 44px rgba(0,0,0,.5));
+  }
+  .scene.active .panel { opacity: 1; transform: translateX(0) rotateY(-3deg) rotateX(1deg); }
+  .panel::before {
+    content: "";
+    position: absolute;
+    inset: -18px -20px;
+    background: radial-gradient(ellipse at 55% 50%, rgba(111,140,255,.25), transparent 68%);
+    filter: blur(30px);
+    z-index: -1;
+  }
+  .panel-shell {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.16);
+    background: #11151f;
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,.55),
+      inset 0 0 0 1px rgba(255,255,255,.04);
+  }
+  .panel-bar {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 12px;
+    background: #0d1119;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .panel-bar i {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #303848;
+  }
+  .panel-bar i:nth-child(1) { background: rgba(255,255,255,.22); }
+  .panel-bar .panel-label {
+    margin-left: auto;
+    color: var(--faint);
+    font-size: 7px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+  }
+  .panel img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: scale(1.035);
+    transform-origin: 50% 50%;
+  }
+  .scene.active .panel img {
+    animation: screenDrift 5.8s ease-out both;
+  }
+  @keyframes screenDrift {
+    0% { transform: scale(1.055) translate3d(0, 0, 0); }
+    100% { transform: scale(1.005) translate3d(-5px, -3px, 0); }
+  }
+  .panel::after {
+    content: "";
+    position: absolute;
+    inset: 30px 0 0;
+    background: linear-gradient(115deg, rgba(255,255,255,.10), transparent 34%, transparent 76%, rgba(111,140,255,.06));
+    pointer-events: none;
+  }
+
+  .intro, .final {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 90px 80px;
+    z-index: 4;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(.985);
+    transition: opacity .7s ease, transform .9s cubic-bezier(.2,.8,.2,1), visibility .7s;
+  }
+  .intro.active, .final.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+  .intro .mark, .final .mark {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    font-size: 86px;
+    line-height: .9;
+    letter-spacing: .14em;
+    font-weight: 600;
+    margin-left: .14em;
+  }
+  .intro .mark .tv, .final .mark .tv { color: var(--accent); }
+  .intro .mark-sub, .final .mark-sub {
+    margin-top: 15px;
+    color: var(--faint);
+    font-size: 11px;
+    letter-spacing: .58em;
+    text-transform: uppercase;
+    padding-left: .58em;
+  }
+  .intro .rule, .final .rule {
+    width: 190px;
+    height: 1px;
+    margin: 40px auto 26px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    box-shadow: 0 0 16px rgba(111,140,255,.4);
+  }
+  .intro .line, .final .line {
+    font-size: 26px;
+    font-weight: 300;
+    letter-spacing: -.02em;
+    color: var(--ink);
+  }
+  .intro .sub, .final .sub {
+    max-width: 560px;
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+    letter-spacing: .01em;
+  }
+  .intro .meta, .final .meta {
+    margin-top: 46px;
+    color: var(--faint);
+    font-size: 9px;
+    letter-spacing: .27em;
+    text-transform: uppercase;
+  }
+  .final .credit {
+    margin-top: 30px;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+  }
+  .final .credit strong { color: var(--ink); font-weight: 500; }
+
+  .footer {
+    position: absolute;
+    left: 56px; right: 56px; bottom: 28px;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--faint);
+    font-size: 8px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+  .progress {
+    width: 280px;
+    height: 2px;
+    background: rgba(255,255,255,.08);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    border-radius: 99px;
+    box-shadow: 0 0 12px rgba(111,140,255,.55);
+  }
+  .footer-left { display: flex; align-items: center; gap: 12px; }
+  .footer-left .tick { width: 18px; height: 1px; background: var(--accent); }
+  .corner {
+    position: absolute;
+    right: 56px; top: 120px;
+    width: 1px; height: 44px;
+    background: linear-gradient(transparent, rgba(111,140,255,.55), transparent);
+    z-index: 5;
+  }
+  .scene .index {
+    position: absolute;
+    right: 56px; bottom: 84px;
+    color: rgba(255,255,255,.18);
+    font-size: 9px;
+    letter-spacing: .25em;
+    z-index: 5;
+  }
+  .scene .index b { color: var(--muted); font-weight: 500; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+
+  <header class="chrome">
+    <div class="brand"><span class="union">UNION</span><span class="tv">TV</span><span class="brand-sub">OS EXPERIENCE</span></div>
+    <div class="chrome-right"><span class="live-dot"></span><span>TCL UnionTV · 720p</span></div>
+  </header>
+  <div class="chrome-rule"></div>
+  <div class="corner"></div>
+
+  <main class="scenes">
+    <section class="intro active" id="intro">
+      <div class="mark"><span class="union">UNION</span><span class="tv">TV</span></div>
+      <div class="mark-sub">OS Experience</div>
+      <div class="rule"></div>
+      <div class="line">Your television, refined.</div>
+      <div class="sub">A native, quiet home experience for TCL UnionTV.<br>Fast, local, and built for the way you watch.</div>
+      <div class="meta">AHSEN KURTOSKI · 1.1.4</div>
+    </section>
+
+    <section class="scene" id="home">
+      <div class="copy">
+        <div class="kicker">01 — Home</div>
+        <h1>A home that feels<br><em>like yours.</em></h1>
+        <p class="lede">27 apps, live Wi-Fi and Canali TV first. One calm place, designed for the 720p screen in your living room.</p>
+        <div class="chips"><span class="chip">27 Apps</span><span class="chip">Live Wi-Fi</span><span class="chip">Canali TV</span></div>
+      </div>
+      <div class="panel">
+        <div class="panel-shell">
+          <div class="panel-bar"><i></i><i></i><i></i><span class="panel-label">UnionTV · Home</span></div>
+          <img src="../audit/v114-home.png" alt="UnionTV Home">
+        </div>
+      </div>
+      <div class="index"><b>01</b> / 04</div>
+    </section>
+
+    <section class="scene" id="apps">
+      <div class="copy">
+        <div class="kicker">02 — Applications</div>
+        <h1>Every app.<br><em>One clean grid.</em></h1>
+        <p class="lede">Real icons, A–Z, recent and favourites. No clutter, no ads — just the applications you actually use.</p>
+        <div class="chips"><span class="chip">Real Icons</span><span class="chip">A–Z / Recent</span><span class="chip">Zero Ads</span></div>
+      </div>
+      <div class="panel">
+        <div class="panel-shell">
+          <div class="panel-bar"><i></i><i></i><i></i><span class="panel-label">UnionTV · Applications</span></div>
+          <img src="../audit/v114-apps.png" alt="UnionTV Applications">
+        </div>
+      </div>
+      <div class="index"><b>02</b> / 04</div>
+    </section>
+
+    <section class="scene" id="network">
+      <div class="copy">
+        <div class="kicker">03 — Network</div>
+        <h1>Live network.<br><em>Real control.</em></h1>
+        <p class="lede">SSID, IP address and link status, always current. Your connection, explained at a glance.</p>
+        <div class="chips"><span class="chip">Live SSID</span><span class="chip">IP / Gateway</span><span class="chip">Local Only</span></div>
+      </div>
+      <div class="panel">
+        <div class="panel-shell">
+          <div class="panel-bar"><i></i><i></i><i></i><span class="panel-label">UnionTV · Network</span></div>
+          <img src="../audit/v114-network.png" alt="UnionTV Network">
+        </div>
+      </div>
+      <div class="index"><b>03</b> / 04</div>
+    </section>
+
+    <section class="scene" id="settings">
+      <div class="copy">
+        <div class="kicker">04 — Settings</div>
+        <h1>Made for the way<br><em>you watch.</em></h1>
+        <p class="lede">Accent, motion, clock and favourites. Small choices that persist, on a launcher that never gets in the way.</p>
+        <div class="chips"><span class="chip">4 Themes</span><span class="chip">Reduced Motion</span><span class="chip">Persistent</span></div>
+      </div>
+      <div class="panel">
+        <div class="panel-shell">
+          <div class="panel-bar"><i></i><i></i><i></i><span class="panel-label">UnionTV · Settings</span></div>
+          <img src="../audit/v114-settings.png" alt="UnionTV Settings">
+        </div>
+      </div>
+      <div class="index"><b>04</b> / 04</div>
+    </section>
+
+    <section class="final" id="final">
+      <div class="mark"><span class="union">UNION</span><span class="tv">TV</span></div>
+      <div class="mark-sub">OS Experience</div>
+      <div class="rule"></div>
+      <div class="line">Your television, refined.</div>
+      <div class="sub">A native 720p home for TCL UnionTV.<br>27 apps · live network · no ads · no tracking.</div>
+      <div class="credit">Designed &amp; Developed by <strong>Ahsen Kurtoski</strong></div>
+      <div class="meta">Version 1.1.4 · 80,399 bytes · Android 9</div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-left"><span class="tick"></span><span>UnionTV OS Experience · 1.1.4</span></div>
+    <div class="progress"><div class="progress-bar" id="progress"></div></div>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    var scenes = [
+      { el: document.getElementById('intro'), start: 0.0 },
+      { el: document.getElementById('home'), start: 2.45 },
+      { el: document.getElementById('apps'), start: 6.05 },
+      { el: document.getElementById('network'), start: 9.0 },
+      { el: document.getElementById('settings'), start: 11.55 },
+      { el: document.getElementById('final'), start: 13.15 }
+    ];
+    var progress = document.getElementById('progress');
+    var startedAt = 0;
+    var active = -1;
+    var running = false;
+    var duration = 15.0;
+
+    function setActive(index) {
+      if (index === active) return;
+      active = index;
+      for (var i = 0; i < scenes.length; i++) {
+        scenes[i].el.classList.toggle('active', i === index);
+      }
+    }
+
+    function frame(now) {
+      if (!running) return;
+      var t = Math.min(duration, (now - startedAt) / 1000);
+      var index = 0;
+      for (var i = 0; i < scenes.length; i++) {
+        if (t >= scenes[i].start) index = i;
+      }
+      setActive(index);
+      progress.style.width = (t / duration * 100).toFixed(3) + '%';
+      if (t >= duration) {
+        running = false;
+        progress.style.width = '100%';
+        return;
+      }
+      requestAnimationFrame(frame);
+    }
+
+    var requestedScene = new URLSearchParams(location.search).get('scene');
+    var requestedIndex = { intro: 0, home: 1, apps: 2, network: 3, settings: 4, final: 5 }[requestedScene];
+    if (typeof requestedIndex === 'number') {
+      setActive(requestedIndex);
+      progress.style.width = (scenes[requestedIndex].start / duration * 100).toFixed(3) + '%';
+    }
+
+    window.startLaunch = function () {
+      running = false;
+      startedAt = performance.now();
+      active = -1;
+      progress.style.width = '0%';
+      document.body.classList.add('playing');
+      setActive(0);
+      running = true;
+      requestAnimationFrame(frame);
+    };
+
+    window.previewLaunchAt = function (seconds) {
+      running = false;
+      var t = Math.max(0, Math.min(duration, seconds));
+      startedAt = performance.now() - t * 1000;
+      active = -1;
+      var index = 0;
+      for (var i = 0; i < scenes.length; i++) {
+        if (t >= scenes[i].start) index = i;
+      }
+      setActive(index);
+      progress.style.width = (t / duration * 100).toFixed(3) + '%';
+    };
+  })();
+</script>
+</body>
+</html>

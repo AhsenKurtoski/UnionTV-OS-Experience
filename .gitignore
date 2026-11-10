@@ -1,0 +1,25 @@
+# Gradle / Android build
+.gradle/
+build/
+app/build/
+
+# Local toolchain and machine configuration
+.tools/
+local.properties
+keystore.properties
+*.jks
+*.keystore
+captures/
+.freebuff/
+
+# Build logs: the 1.1.4 release log is kept as QA evidence.
+build-1.1.1.log
+build-1.1.2*.log
+build-1.1.3.log
+
+# Raw audit captures contain device identifiers and intermediate UI dumps.
+# Only the documented 1.1.4 screenshots are published.
+docs/audit/*
+!docs/audit/v114-*.png
+
+.DS_Store

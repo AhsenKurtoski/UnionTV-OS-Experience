@@ -37,18 +37,18 @@ no Internet permission; this screen is read-only.
 
 ![UnionTV System information](audit/v114-system.png)
 
-Platform/device details. The screenshot shows API level 28, the resolved
-**UnionTV OS Experience** Home, **27** launchable apps, memory/storage and the
-1280×720 display. It was captured at the screen's lower scroll position; the
-upper device facts exist above it.
+Platform/device details from the top of the screen: manufacturer, model,
+architecture, Android 9 / API 28, the resolved **UnionTV OS Experience** Home
+and **27** launchable apps. Memory/storage and display figures follow below.
 
 ## About
 
 ![UnionTV About](audit/v114-about.png)
 
-The project identity and version block: project version **1.1.4**, Android 9 /
-API 28 / ARMv7 / 1280×720, release build, package
-`com.ahsenkurtoski.uniontvos`, and the independence disclaimer.
+The top-of-screen capture includes the complete UnionTV logo and the project
+identity block: project version **1.1.4**, Android 9 / API 28 / ARMv7 /
+1280×720, release build, package `com.ahsenkurtoski.uniontvos`, and the
+independence disclaimer.
 
 ## Startup states
 

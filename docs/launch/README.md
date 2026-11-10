@@ -10,6 +10,9 @@ A short, quiet launch film for UnionTV OS Experience 1.1.4. It uses the real
 names and local IP addresses are redacted in the published screenshots and film.
 There is no stock footage, no licensed music and no voice-over.
 
+**Release:** [UnionTV OS Experience 1.1.4](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/releases/tag/v1.1.4) —
+the signed APK and all launch assets are also available from the GitHub release.
+
 ## What is in this folder
 
 | File | Purpose |

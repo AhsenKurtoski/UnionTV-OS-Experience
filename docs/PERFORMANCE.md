@@ -3,6 +3,8 @@
 All figures were measured on the physical TCL UnionTV over ADB, not on an
 emulator.
 
+**Release:** [UnionTV OS Experience 1.1.4 (6)](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/releases/tag/v1.1.4)
+
 ## 1.1.4 icon-loading update
 
 `1.1.4` resolves every icon before publishing the application list, using a

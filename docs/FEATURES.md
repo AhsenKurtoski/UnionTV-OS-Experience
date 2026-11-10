@@ -1,6 +1,7 @@
 # UnionTV OS Experience — Feature guide
 
 **Version:** 1.1.4 (versionCode 6)  
+**Release:** [GitHub v1.1.4](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/releases/tag/v1.1.4)<br>
 **Platform:** Android TV, tested on TCL UnionTV (Android 9 / API 28, ARMv7, 1280×720)  
 **Designed & Developed by:** Ahsen Kurtoski
 

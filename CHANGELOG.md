@@ -39,6 +39,8 @@ The app version is the Android `versionName`; the number in parentheses is the
 | Third-party libraries | none |
 | Internet permission | none |
 
+**GitHub release:** [v1.1.4](https://github.com/AhsenKurtoski/UnionTV-OS-Experience/releases/tag/v1.1.4)
+
 ### Validation
 
 See [docs/QA.md](docs/QA.md). No known errors were observed on the recorded
